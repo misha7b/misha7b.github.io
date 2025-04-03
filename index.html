@@ -39,6 +39,51 @@
                 width: 100%;
             }
         }
+
+        /* Toggle switch styles */
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
     </style>
 </head>
 <body class="bg-white min-h-screen flex">
@@ -77,11 +122,17 @@
     </div>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-200 py-6 absolute bottom-0 left-0 w-full">
+    <footer class="border-t border-gray-200 py-6 fixed bottom-0 left-0 w-full bg-white">
         <div class="container mx-auto px-4">
-            <div class="flex justify-start items-center text-sm">
-                <div class="ml-0">
-
+            <div class="flex justify-between items-center">
+                <div class="text-sm text-gray-600">
+                    &copy; 2025 misha7b
+                </div>
+                <div class="flex items-center">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="rainbow-toggle">
+                        <span class="slider"></span>
+                    </label>
                 </div>
             </div>
         </div>
@@ -91,6 +142,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             const canvas = document.getElementById('hypercube-canvas');
             const ctx = canvas.getContext('2d');
+            const rainbowToggle = document.getElementById('rainbow-toggle');
+            
+            let rainbowMode = false;
+            let hue = 0;
             
             // Set canvas size
             function resizeCanvas() {
@@ -204,21 +259,49 @@
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 
-                // Draw edges
-                ctx.beginPath();
-                ctx.strokeStyle = '#222'; // Dark gray color for better visibility
-                ctx.lineWidth = 1.5;
-                
-                for (const edge of edges) {
-                    const [i1, i2] = edge;
-                    const [x1, y1] = project4D(vertices4D[i1]);
-                    const [x2, y2] = project4D(vertices4D[i2]);
-                    
-                    ctx.moveTo(x1, y1);
-                    ctx.lineTo(x2, y2);
+                // Update hue for rainbow effect
+                if (rainbowMode) {
+                    hue = (hue + 1) % 360;
                 }
                 
-                ctx.stroke();
+                // Draw edges
+                ctx.beginPath();
+                
+                if (rainbowMode) {
+                    // Rainbow gradient for edges
+                    for (const edge of edges) {
+                        const [i1, i2] = edge;
+                        const [x1, y1] = project4D(vertices4D[i1]);
+                        const [x2, y2] = project4D(vertices4D[i2]);
+                        
+                        // Create gradient for each edge
+                        const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
+                        gradient.addColorStop(0, `hsl(${(hue + i1 * 10) % 360}, 100%, 50%)`);
+                        gradient.addColorStop(1, `hsl(${(hue + i2 * 10) % 360}, 100%, 50%)`);
+                        
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = 1.5;
+                        ctx.beginPath();
+                        ctx.moveTo(x1, y1);
+                        ctx.lineTo(x2, y2);
+                        ctx.stroke();
+                    }
+                } else {
+                    // Default single color for edges
+                    ctx.strokeStyle = '#222';
+                    ctx.lineWidth = 1.5;
+                    
+                    for (const edge of edges) {
+                        const [i1, i2] = edge;
+                        const [x1, y1] = project4D(vertices4D[i1]);
+                        const [x2, y2] = project4D(vertices4D[i2]);
+                        
+                        ctx.moveTo(x1, y1);
+                        ctx.lineTo(x2, y2);
+                    }
+                    
+                    ctx.stroke();
+                }
                 
                 // Automatic rotation
                 angleXY += 0.001;
@@ -230,6 +313,11 @@
                 
                 requestAnimationFrame(animate);
             }
+            
+            // Toggle rainbow mode
+            rainbowToggle.addEventListener('change', function() {
+                rainbowMode = this.checked;
+            });
             
             // Start animation
             animate();
