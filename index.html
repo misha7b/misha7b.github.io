@@ -84,6 +84,48 @@
         input:checked + .slider:before {
             transform: translateX(26px);
         }
+
+        /* Project link styles */
+        .project-link {
+            display: inline-block;
+            position: relative;
+            color: #3b82f6;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: #1d4ed8;
+        }
+
+        .project-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: #1d4ed8;
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        .project-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .wip-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 9999px;
+            background-color: #fef3c7;
+            color: #92400e;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body class="bg-white min-h-screen flex">
@@ -114,8 +156,13 @@
             <!-- Projects Section -->
             <div class="mb-16">
                 <h2 class="text-lg md:text-xl font-medium mb-6">Projects</h2>
-                <div class="text-gray-600 text-sm">
-                    Nothing here yet!
+                <div class="space-y-3">
+                    <div>
+                        <a href="https://github.com/misha7b/flow-matching-toy" class="project-link" target="_blank">
+                            2D Flow Matching Demo
+                        </a>
+                        <span class="wip-badge">WIP</span>
+                    </div>
                 </div>
             </div>
         </main>
