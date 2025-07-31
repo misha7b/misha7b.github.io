@@ -174,17 +174,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             const canvas = document.getElementById('hypercube-canvas');
             const ctx = canvas.getContext('2d');
-            const rainbowToggle = document.getElementById('rainbow-toggle');
-            
+
             let rainbowMode = false;
             let hue = 0;
-            
+
             // Set canvas size
             function resizeCanvas() {
                 canvas.width = canvas.offsetWidth;
                 canvas.height = canvas.offsetHeight;
-            }
-            
+            }    
+
             window.addEventListener('resize', resizeCanvas);
             resizeCanvas();
             
