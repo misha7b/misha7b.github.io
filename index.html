@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>misha7b</title>
+    <title>Michael Belyaev</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
@@ -40,62 +40,12 @@
             }
         }
 
-        /* Toggle switch styles */
-        .toggle-switch {
-            position: relative;
-            width: 60px;
-            height: 34px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-
         /* Project link styles */
         .project-link {
-    display: inline-block;
-    position: relative;
-    /*color: #3b82f6;*/
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-        .project-link:hover {
-            /*color: #1d4ed8;*/
+            display: inline-block;
+            position: relative;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         .project-link::after {
@@ -115,27 +65,14 @@
             transform: scaleX(1);
             transform-origin: bottom left;
         }
-
-        .wip-badge {
-            display: inline-block;
-            font-size: 0.7rem;
-            padding: 0.15rem 0.4rem;
-            border-radius: 9999px;
-            background-color: #fef3c7;
-            color: #92400e;
-            margin-left: 0.5rem;
-            vertical-align: middle;
-        }
     </style>
 </head>
 <body class="bg-white min-h-screen flex">
-    <!-- Hypercube Canvas -->
     <canvas id="hypercube-canvas"></canvas>
     
     <div class="content-container">
-        <!-- Header -->
         <header class="mb-12">
-            <h1 class="text-2xl md:text-3xl font-medium">misha7b</h1>
+            <h1 class="text-2xl md:text-3xl font-medium">Michael Belyaev</h1>
             <div class="flex space-x-4 mt-2">
                 <a href="MichaelBelyaevCV.pdf" class="text-sm hover:underline" target="_blank">Resume</a>
                 <a href="https://github.com/misha7b" target="_blank" class="text-sm hover:underline">GitHub</a>
@@ -143,57 +80,47 @@
             </div>
         </header>
 
-        <!-- Main Content -->
         <main>
-            <!-- About Section -->
             <div class="mb-16">
                 <h2 class="text-lg md:text-xl font-medium mb-2">About me</h2>
                 <p class="text-sm md:text-base leading-relaxed">
-                    I'm Misha, a 4th year undergraduate mathematics student at the University of Edinburgh. My interests lie in the applications of mathematics in machine learning.
+                    I'm Misha, a mathematics student at the University of Edinburgh looking for an internship combining mathematics and computer science, with a focus on machine learning and deep learning.
                 </p>
             </div>
 
-            <!-- Projects Section -->
             <div class="mb-16">
-            <h2 class="text-lg md:text-xl font-medium mb-6">Projects</h2>
-            <div class="space-y-6">
-                <div>
-                    <a href="[https://github.com/misha7b/Program-Synthesis-for-Efficient-ML](https://github.com/misha7b/Program-Synthesis-for-Efficient-ML)" class="project-link" target="_blank">
-                        Program Synthesis For Efficient ML
-                    </a>
-                    [cite_start]<p class="text-sm mt-1">Research into using syntax-guided synthesis (SyGuS) to automatically generate hardware logic for low-precision arithmetic[cite: 18].</p>
-                </div>
-                <div>
-                    <a href="SP_Report.pdf" class="project-link" target="_blank">
-                        Neural Field Optimization
-                    </a>
-                    [cite_start]<p class="text-sm mt-1">report exploring the robustness and performance of optimization techniques for neural fields[cite: 30].</p>
+                <h2 class="text-lg md:text-xl font-medium mb-6">Projects</h2>
+                <div class="space-y-6">
+                    <div>
+                        <a href="https://github.com/misha7b/Program-Synthesis-for-Efficient-ML" class="project-link" target="_blank">
+                            Program Synthesis For Efficient ML
+                        </a>
+                        <p class="text-sm mt-1">Research into using syntax-guided synthesis (SyGuS) to automatically generate hardware logic for low-precision arithmetic.</p>
+                    </div>
+                    <div>
+                        <a href="SP_Report.pdf" class="project-link" target="_blank">
+                            Neural Field Optimization
+                        </a>
+                        <p class="text-sm mt-1">Report exploring the robustness and performance of optimization techniques for neural fields.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
-</div>
-
-
+        </main>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const canvas = document.getElementById('hypercube-canvas');
             const ctx = canvas.getContext('2d');
-
-            let rainbowMode = false;
-            let hue = 0;
-
-            // Set canvas size
+            
             function resizeCanvas() {
                 canvas.width = canvas.offsetWidth;
                 canvas.height = canvas.offsetHeight;
-            }    
+            }   
 
             window.addEventListener('resize', resizeCanvas);
             resizeCanvas();
             
-            // Hypercube (4D cube) vertices
             const vertices4D = [
                 [-1, -1, -1, -1], [1, -1, -1, -1], [1, 1, -1, -1], [-1, 1, -1, -1],
                 [-1, -1, 1, -1], [1, -1, 1, -1], [1, 1, 1, -1], [-1, 1, 1, -1],
@@ -201,7 +128,6 @@
                 [-1, -1, 1, 1], [1, -1, 1, 1], [1, 1, 1, 1], [-1, 1, 1, 1]
             ];
             
-            // Edges connect vertices that differ in exactly one coordinate
             const edges = [];
             for (let i = 0; i < vertices4D.length; i++) {
                 for (let j = i + 1; j < vertices4D.length; j++) {
@@ -213,148 +139,50 @@
                 }
             }
             
-            // Rotation angles for 4D
-            let angleXY = 0;
-            let angleXZ = 0;
-            let angleXW = 0;
-            let angleYZ = 0;
-            let angleYW = 0;
-            let angleZW = 0;
+            let angleXY = 0, angleXZ = 0, angleXW = 0, angleYZ = 0, angleYW = 0, angleZW = 0;
             
-            // Project 4D point to 3D, then to 2D
             function project4D(point4D) {
                 const size = Math.min(canvas.width, canvas.height) * 0.15;
-                
-                // Apply 4D rotations
                 let [x, y, z, w] = point4D;
                 
-                // XY rotation
-                const cosXY = Math.cos(angleXY);
-                const sinXY = Math.sin(angleXY);
-                const x1 = x * cosXY - y * sinXY;
-                const y1 = x * sinXY + y * cosXY;
-                z = z;
-                w = w;
+                // 4D Rotations simplified
+                const r = (coord1, coord2, angle) => [coord1 * Math.cos(angle) - coord2 * Math.sin(angle), coord1 * Math.sin(angle) + coord2 * Math.cos(angle)];
+                [x, y] = r(x, y, angleXY);
+                [x, z] = r(x, z, angleXZ);
+                [x, w] = r(x, w, angleXW);
+                [y, z] = r(y, z, angleYZ);
+                [y, w] = r(y, w, angleYW);
+                [z, w] = r(z, w, angleZW);
                 
-                // XZ rotation
-                const cosXZ = Math.cos(angleXZ);
-                const sinXZ = Math.sin(angleXZ);
-                const x2 = x1 * cosXZ - z * sinXZ;
-                const z1 = x1 * sinXZ + z * cosXZ;
-                y = y1;
-                w = w;
-                
-                // XW rotation
-                const cosXW = Math.cos(angleXW);
-                const sinXW = Math.sin(angleXW);
-                const x3 = x2 * cosXW - w * sinXW;
-                const w1 = x2 * sinXW + w * cosXW;
-                y = y;
-                z = z1;
-                
-                // YZ rotation
-                const cosYZ = Math.cos(angleYZ);
-                const sinYZ = Math.sin(angleYZ);
-                const y2 = y * cosYZ - z * sinYZ;
-                const z2 = y * sinYZ + z * cosYZ;
-                x = x3;
-                w = w1;
-                
-                // YW rotation
-                const cosYW = Math.cos(angleYW);
-                const sinYW = Math.sin(angleYW);
-                const y3 = y2 * cosYW - w * sinYW;
-                const w2 = y2 * sinYW + w * cosYW;
-                x = x;
-                z = z2;
-                
-                // ZW rotation
-                const cosZW = Math.cos(angleZW);
-                const sinZW = Math.sin(angleZW);
-                const z3 = z * cosZW - w * sinZW;
-                const w3 = z * sinZW + w * cosZW;
-                x = x;
-                y = y3;
-                
-                // Perspective projection from 4D to 3D
-                const distance4D = 5;
-                const factor4D = distance4D / (distance4D - w3);
-                const x3D = x * factor4D;
-                const y3D = y * factor4D;
-                const z3D = z3 * factor4D;
-                
-                // Perspective projection from 3D to 2D
-                const distance3D = 3;
-                const factor3D = distance3D / (distance3D - z3D);
+                // Perspective Projections
+                const dist4D = 5, factor4D = dist4D / (dist4D - w);
+                const x3D = x * factor4D, y3D = y * factor4D, z3D = z * factor4D;
+                const dist3D = 3, factor3D = dist3D / (dist3D - z3D);
                 const px = x3D * factor3D * size + canvas.width / 2;
                 const py = -y3D * factor3D * size + canvas.height / 2;
                 
                 return [px, py];
             }
             
-            // Animation function
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Update hue for rainbow effect
-                if (rainbowMode) {
-                    hue = (hue + 1) % 360;
-                }
-                
-                // Draw edges
+                ctx.strokeStyle = '#222';
+                ctx.lineWidth = 1.5;
                 ctx.beginPath();
                 
-                if (rainbowMode) {
-                    // Rainbow gradient for edges
-                    for (const edge of edges) {
-                        const [i1, i2] = edge;
-                        const [x1, y1] = project4D(vertices4D[i1]);
-                        const [x2, y2] = project4D(vertices4D[i2]);
-                        
-                        // Create gradient for each edge
-                        const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
-                        gradient.addColorStop(0, `hsl(${(hue + i1 * 10) % 360}, 100%, 50%)`);
-                        gradient.addColorStop(1, `hsl(${(hue + i2 * 10) % 360}, 100%, 50%)`);
-                        
-                        ctx.strokeStyle = gradient;
-                        ctx.lineWidth = 1.5;
-                        ctx.beginPath();
-                        ctx.moveTo(x1, y1);
-                        ctx.lineTo(x2, y2);
-                        ctx.stroke();
-                    }
-                } else {
-                    // Default single color for edges
-                    ctx.strokeStyle = '#222';
-                    ctx.lineWidth = 1.5;
-                    
-                    for (const edge of edges) {
-                        const [i1, i2] = edge;
-                        const [x1, y1] = project4D(vertices4D[i1]);
-                        const [x2, y2] = project4D(vertices4D[i2]);
-                        
-                        ctx.moveTo(x1, y1);
-                        ctx.lineTo(x2, y2);
-                    }
-                    
-                    ctx.stroke();
+                for (const edge of edges) {
+                    const p1 = project4D(vertices4D[edge[0]]);
+                    const p2 = project4D(vertices4D[edge[1]]);
+                    ctx.moveTo(p1[0], p1[1]);
+                    ctx.lineTo(p2[0], p2[1]);
                 }
+                ctx.stroke();
                 
-                // Automatic rotation
-                angleXY += 0.001;
-                angleXZ += 0.002;
-                angleXW += 0.003;
-                angleYZ += 0.004;
-                angleYW += 0.005;
-                angleZW += 0.006;
+                angleXY += 0.001; angleXZ += 0.002; angleXW += 0.003;
+                angleYZ += 0.004; angleYW += 0.005; angleZW += 0.006;
                 
                 requestAnimationFrame(animate);
             }
-            
-            // Toggle rainbow mode
-           
-            
-            // Start animation
             animate();
         });
     </script>
