@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Michael Belyaev</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -14,8 +14,7 @@
       margin: 0;
       padding: 0;
     }
-    
-    #dragon-canvas {
+    #hypercube-canvas {
       position: fixed;
       top: 0;
       right: 0;
@@ -24,30 +23,24 @@
       z-index: -1;
       opacity: 0.3;
     }
-    
     .content-container {
       width: 50%;
       padding: 2rem;
     }
-    
     @media (max-width: 768px) {
-      #dragon-canvas {
-        display: none;
-      }
-      .content-container {
-        width: 100%;
-      }
+      #hypercube-canvas { display: none; }
+      .content-container { width: 100%; }
     }
 
+    /* Project link styles */
     .project-link {
       display: inline-block;
       position: relative;
       text-decoration: none;
       transition: all 0.3s ease;
-      color: #2563eb;  
+      color: #2563eb;
       font-weight: 500;
     }
-
     .project-link::after {
       content: '';
       position: absolute;
@@ -60,7 +53,6 @@
       transform-origin: bottom right;
       transition: transform 0.3s ease-out;
     }
-
     .project-link:hover::after {
       transform: scaleX(1);
       transform-origin: bottom left;
@@ -68,8 +60,8 @@
   </style>
 </head>
 <body class="bg-white min-h-screen flex">
-  <canvas id="dragon-canvas"></canvas>
-  
+  <canvas id="hypercube-canvas"></canvas>
+
   <div class="content-container">
     <header class="mb-12">
       <h1 class="text-2xl md:text-3xl font-medium">Michael Belyaev</h1>
@@ -84,7 +76,7 @@
       <div class="mb-16">
         <h2 class="text-lg md:text-xl font-medium mb-2">About me</h2>
         <p class="text-sm md:text-base leading-relaxed">
-          I'm Misha, a 4th year undergraduate mathematics student at the University of Edinburgh. My interests lie in the applications of mathematics in machine learning.
+          I'm Misha, a 4th-year undergraduate Mathematics student at the University of Edinburgh. I’m particularly interested in the intersection of mathematics and machine learning.
         </p>
       </div>
 
@@ -109,154 +101,88 @@
   </div>
 
   <script>
-  document.addEventListener('DOMContentLoaded', async function () {
-    const canvas = document.getElementById('dragon-canvas');
-    const ctx = canvas.getContext('2d');
+    document.addEventListener('DOMContentLoaded', function () {
+      const canvas = document.getElementById('hypercube-canvas');
+      const ctx = canvas.getContext('2d');
 
-    function resizeCanvas() {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+      // Handle sizing incl. devicePixelRatio for crisp lines
+      function resizeCanvas() {
+        const dpr = Math.max(1, window.devicePixelRatio || 1);
+        const cssW = canvas.offsetWidth;
+        const cssH = canvas.offsetHeight;
+        canvas.width = Math.floor(cssW * dpr);
+        canvas.height = Math.floor(cssH * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // render in CSS pixels
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
 
-    // --- STL loader ---
-    async function loadSTL(url) {
-      const response = await fetch(url);
-      const arrayBuffer = await response.arrayBuffer();
-      const data = new DataView(arrayBuffer);
+      // 16 vertices of the tesseract (±1 in each coordinate)
+      const vertices4D = [
+        [-1,-1,-1,-1], [ 1,-1,-1,-1], [ 1, 1,-1,-1], [-1, 1,-1,-1],
+        [-1,-1, 1,-1], [ 1,-1, 1,-1], [ 1, 1, 1,-1], [-1, 1, 1,-1],
+        [-1,-1,-1, 1], [ 1,-1,-1, 1], [ 1, 1,-1, 1], [-1, 1,-1, 1],
+        [-1,-1, 1, 1], [ 1,-1, 1, 1], [ 1, 1, 1, 1], [-1, 1, 1, 1]
+      ];
 
-      const isBinary = () => {
-        const text = new TextDecoder().decode(arrayBuffer.slice(0, 200)).trim();
-        return !text.startsWith("solid");
-      };
-
-      let vertices = [];
-      let faces = [];
-
-      if (isBinary()) {
-        const triangles = data.getUint32(80, true);
-        let offset = 84;
-        for (let i = 0; i < triangles; i++) {
-          offset += 12; // skip normal
-          const triVerts = [];
-          for (let j = 0; j < 3; j++) {
-            const x = data.getFloat32(offset, true); offset += 4;
-            const y = data.getFloat32(offset, true); offset += 4;
-            const z = data.getFloat32(offset, true); offset += 4;
-            triVerts.push([x, y, z]);
-          }
-          const idx = triVerts.map(v => {
-            const key = v.join(",");
-            let vi = vertices.findIndex(p => p.join(",") === key);
-            if (vi === -1) {
-              vi = vertices.length;
-              vertices.push(v);
-            }
-            return vi;
-          });
-          faces.push(idx);
-          offset += 2; // skip attribute byte count
-        }
-      } else {
-        const text = new TextDecoder().decode(arrayBuffer);
-        const lines = text.split("\n");
-        const vMap = new Map();
-        for (let line of lines) {
-          line = line.trim();
-          if (line.startsWith("vertex")) {
-            const parts = line.split(/\s+/).slice(1).map(Number);
-            const key = parts.join(",");
-            if (!vMap.has(key)) vMap.set(key, vertices.length), vertices.push(parts);
-          }
-          if (line.startsWith("endfacet")) {
-            const vs = Array.from(vMap.keys()).slice(-3).map(k => vMap.get(k));
-            faces.push(vs);
-          }
+      // Build edges: connect vertices differing in exactly one coordinate
+      const edges = [];
+      for (let i = 0; i < vertices4D.length; i++) {
+        for (let j = i + 1; j < vertices4D.length; j++) {
+          let diff = 0;
+          for (let k = 0; k < 4; k++) if (vertices4D[i][k] !== vertices4D[j][k]) diff++;
+          if (diff === 1) edges.push([i, j]);
         }
       }
-      return { vertices, faces };
-    }
 
-    function buildEdges(faces) {
-      const edges = new Set();
-      faces.forEach(f => {
-        [[f[0], f[1]], [f[1], f[2]], [f[2], f[0]]].forEach(([a, b]) => {
-          const key = a < b ? `${a},${b}` : `${b},${a}`;
-          edges.add(key);
-        });
-      });
-      return Array.from(edges).map(e => e.split(',').map(Number));
-    }
+      // Rotation angles
+      let angleXY = 0, angleXZ = 0, angleXW = 0, angleYZ = 0, angleYW = 0, angleZW = 0;
 
-    // --- Normalize mesh to unit cube ---
-    function normalize(vertices) {
-      let minX = Infinity, minY = Infinity, minZ = Infinity;
-      let maxX = -Infinity, maxY = -Infinity, maxZ = -Infinity;
-      vertices.forEach(([x, y, z]) => {
-        if (x < minX) minX = x; if (x > maxX) maxX = x;
-        if (y < minY) minY = y; if (y > maxY) maxY = y;
-        if (z < minZ) minZ = z; if (z > maxZ) maxZ = z;
-      });
-      const cx = (minX + maxX) / 2;
-      const cy = (minY + maxY) / 2;
-      const cz = (minZ + maxZ) / 2;
-      const scale = 1 / Math.max(maxX - minX, maxY - minY, maxZ - minZ);
+      // 2D rotation helper
+      const rot2 = (a, b, t) => [a * Math.cos(t) - b * Math.sin(t), a * Math.sin(t) + b * Math.cos(t)];
 
-      return vertices.map(([x, y, z]) => [
-        (x - cx) * scale * 2,
-        (y - cy) * scale * 2,
-        (z - cz) * scale * 2
-      ]);
-    }
+      // 4D -> 2D projection via 4D->3D perspective then 3D->2D perspective
+      function project4D(p4) {
+        const size = Math.min(canvas.offsetWidth, canvas.offsetHeight) * 0.16;
+        let [x, y, z, w] = p4;
 
-    function rotate([x, y, z], ax, ay) {
-      // Rotate around X
-      let y1 = y * Math.cos(ax) - z * Math.sin(ax);
-      let z1 = y * Math.sin(ax) + z * Math.cos(ax);
-      let x1 = x;
-      // Rotate around Y
-      let x2 = x1 * Math.cos(ay) + z1 * Math.sin(ay);
-      let z2 = -x1 * Math.sin(ay) + z1 * Math.cos(ay);
-      return [x2, y1, z2];
-    }
+        [x, y] = rot2(x, y, angleXY);
+        [x, z] = rot2(x, z, angleXZ);
+        [x, w] = rot2(x, w, angleXW);
+        [y, z] = rot2(y, z, angleYZ);
+        [y, w] = rot2(y, w, angleYW);
+        [z, w] = rot2(z, w, angleZW);
 
-    function project([x, y, z]) {
-      const scale = Math.min(canvas.width, canvas.height) * 0.45;
-      const dist = 4;
-      const f = dist / (dist - z);
-      const px = x * f * scale + canvas.width / 2;
-      const py = -y * f * scale + canvas.height / 2;
-      return [px, py];
-    }
+        const dist4 = 5, f4 = dist4 / (dist4 - w);
+        const x3 = x * f4, y3 = y * f4, z3 = z * f4;
 
-    // --- Load and render dragon ---
-    const { vertices: rawVertices, faces } = await loadSTL('lowply.stl');
-    const vertices = normalize(rawVertices);
-    const edges = buildEdges(faces);
+        const dist3 = 3, f3 = dist3 / (dist3 - z3);
+        const px = x3 * f3 * size + canvas.offsetWidth / 2;
+        const py = -y3 * f3 * size + canvas.offsetHeight / 2;
+        return [px, py];
+      }
 
-    let angleX = 0;
-    let angleY = 0;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+        ctx.beginPath();
+        for (const [i, j] of edges) {
+          const p1 = project4D(vertices4D[i]);
+          const p2 = project4D(vertices4D[j]);
+          ctx.moveTo(p1[0], p1[1]);
+          ctx.lineTo(p2[0], p2[1]);
+        }
+        ctx.strokeStyle = '#222';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.beginPath();
-      edges.forEach(([a, b]) => {
-        const p1 = project(rotate(vertices[a], angleX, angleY));
-        const p2 = project(rotate(vertices[b], angleX, angleY));
-        ctx.moveTo(p1[0], p1[1]);
-        ctx.lineTo(p2[0], p2[1]);
-      });
-      ctx.strokeStyle = "#222";
-      ctx.lineWidth = 1;
-      ctx.stroke();
+        // Gentle multi-plane rotation
+        angleXY += 0.0015; angleXZ += 0.0025; angleXW += 0.0030;
+        angleYZ += 0.0040; angleYW += 0.0020; angleZW += 0.0035;
 
-      angleX += 0.007;
-      angleY += 0.01;
-      requestAnimationFrame(animate);
-    }
-    animate();
-  });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    });
   </script>
 </body>
 </html>
