@@ -126,7 +126,6 @@
       const arrayBuffer = await response.arrayBuffer();
       const data = new DataView(arrayBuffer);
 
-      // Detect binary STL
       const isBinary = () => {
         const text = new TextDecoder().decode(arrayBuffer.slice(0, 200)).trim();
         return !text.startsWith("solid");
@@ -160,7 +159,6 @@
           offset += 2; // skip attribute byte count
         }
       } else {
-        // ASCII STL
         const text = new TextDecoder().decode(arrayBuffer);
         const lines = text.split("\n");
         const vMap = new Map();
@@ -191,6 +189,27 @@
       return Array.from(edges).map(e => e.split(',').map(Number));
     }
 
+    // --- Normalize mesh to unit cube ---
+    function normalize(vertices) {
+      let minX = Infinity, minY = Infinity, minZ = Infinity;
+      let maxX = -Infinity, maxY = -Infinity, maxZ = -Infinity;
+      vertices.forEach(([x, y, z]) => {
+        if (x < minX) minX = x; if (x > maxX) maxX = x;
+        if (y < minY) minY = y; if (y > maxY) maxY = y;
+        if (z < minZ) minZ = z; if (z > maxZ) maxZ = z;
+      });
+      const cx = (minX + maxX) / 2;
+      const cy = (minY + maxY) / 2;
+      const cz = (minZ + maxZ) / 2;
+      const scale = 1 / Math.max(maxX - minX, maxY - minY, maxZ - minZ);
+
+      return vertices.map(([x, y, z]) => [
+        (x - cx) * scale * 2,
+        (y - cy) * scale * 2,
+        (z - cz) * scale * 2
+      ]);
+    }
+
     function rotate([x, y, z], ax, ay) {
       // Rotate around X
       let y1 = y * Math.cos(ax) - z * Math.sin(ax);
@@ -203,8 +222,8 @@
     }
 
     function project([x, y, z]) {
-      const scale = Math.min(canvas.width, canvas.height) * 0.4;
-      const dist = 6;
+      const scale = Math.min(canvas.width, canvas.height) * 0.45;
+      const dist = 4;
       const f = dist / (dist - z);
       const px = x * f * scale + canvas.width / 2;
       const py = -y * f * scale + canvas.height / 2;
@@ -212,7 +231,8 @@
     }
 
     // --- Load and render dragon ---
-    const { vertices, faces } = await loadSTL('lowpoly.stl');
+    const { vertices: rawVertices, faces } = await loadSTL('lowply.stl');
+    const vertices = normalize(rawVertices);
     const edges = buildEdges(faces);
 
     let angleX = 0;
@@ -231,8 +251,8 @@
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      angleX += 0.007;  // slower pitch
-      angleY += 0.01;   // yaw
+      angleX += 0.007;
+      angleY += 0.01;
       requestAnimationFrame(animate);
     }
     animate();
