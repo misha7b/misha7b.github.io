@@ -1,193 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Michael Belyaev</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'IBM Plex Mono', monospace;
-            position: relative;
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
-        }
-        
-        #hypercube-canvas {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-        }
-        
-        .content-container {
-            width: 50%;
-            padding: 2rem;
-        }
-        
-        @media (max-width: 768px) {
-            #hypercube-canvas {
-                display: none;
-            }
-            
-            .content-container {
-                width: 100%;
-            }
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Michael Belyaev</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'IBM Plex Mono', monospace;
+      position: relative;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    
+    #dragon-canvas {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.3;
+    }
+    
+    .content-container {
+      width: 50%;
+      padding: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      #dragon-canvas {
+        display: none;
+      }
+      .content-container {
+        width: 100%;
+      }
+    }
 
-        /* Project link styles */
-        .project-link {
-            display: inline-block;
-            position: relative;
-            text-decoration: none;
-            transition: all 0.3s ease;
+    .project-link {
+      display: inline-block;
+      position: relative;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      color: #2563eb;  
+      font-weight: 500;
+    }
 
-            color: #2563eb;  
-            font-weight: 500;
-        }
+    .project-link::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 1px;
+      bottom: 0;
+      left: 0;
+      background-color: #000000;
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
 
-        .project-link::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            transform: scaleX(0);
-            height: 1px;
-            bottom: 0;
-            left: 0;
-            background-color: #000000;
-            transform-origin: bottom right;
-            transition: transform 0.3s ease-out;
-        }
-
-        .project-link:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-    </style>
+    .project-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+  </style>
 </head>
 <body class="bg-white min-h-screen flex">
-    <canvas id="hypercube-canvas"></canvas>
-    
-    <div class="content-container">
-        <header class="mb-12">
-            <h1 class="text-2xl md:text-3xl font-medium">Michael Belyaev</h1>
-            <div class="flex space-x-4 mt-2">
-                <a href="michaelBelyaevCV.pdf" class="text-sm hover:underline" target="_blank">Resume</a>
-                <a href="https://github.com/misha7b" target="_blank" class="text-sm hover:underline">GitHub</a>
-                <a href="https://linkedin.com/in/misha7b" target="_blank" class="text-sm hover:underline">LinkedIn</a>
-            </div>
-        </header>
+  <canvas id="dragon-canvas"></canvas>
+  
+  <div class="content-container">
+    <header class="mb-12">
+      <h1 class="text-2xl md:text-3xl font-medium">Michael Belyaev</h1>
+      <div class="flex space-x-4 mt-2">
+        <a href="michaelBelyaevCV.pdf" class="text-sm hover:underline" target="_blank">Resume</a>
+        <a href="https://github.com/misha7b" target="_blank" class="text-sm hover:underline">GitHub</a>
+        <a href="https://linkedin.com/in/misha7b" target="_blank" class="text-sm hover:underline">LinkedIn</a>
+      </div>
+    </header>
 
-        <main>
-            <div class="mb-16">
-                <h2 class="text-lg md:text-xl font-medium mb-2">About me</h2>
-                <p class="text-sm md:text-base leading-relaxed">
-                    I'm Misha, a 4th year undergraduate mathematics student at the University of Edinburgh. My interests lie in the applications of mathematics in machine learning.
-                </p>
-            </div>
+    <main>
+      <div class="mb-16">
+        <h2 class="text-lg md:text-xl font-medium mb-2">About me</h2>
+        <p class="text-sm md:text-base leading-relaxed">
+          I'm Misha, a 4th year undergraduate mathematics student at the University of Edinburgh. My interests lie in the applications of mathematics in machine learning.
+        </p>
+      </div>
 
-            <div class="mb-16">
-                <h2 class="text-lg md:text-xl font-medium mb-6">Projects</h2>
-                <div class="space-y-6">
-                    <div>
-                        <a href="https://github.com/misha7b/Program-Synthesis-for-Efficient-ML" class="project-link" target="_blank">
-                            Program Synthesis For Efficient ML
-                        </a>
-                        <p class="text-sm mt-1">Research into using syntax-guided synthesis (SyGuS) to automatically generate hardware logic for low-precision arithmetic.</p>
-                    </div>
-                    <div>
-                        <a href="main.pdf" class="project-link" target="_blank">
-                            Neural Field Optimization
-                        </a>
-                        <p class="text-sm mt-1">Report exploring the robustness and performance of optimization techniques for neural fields.</p>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
+      <div class="mb-16">
+        <h2 class="text-lg md:text-xl font-medium mb-6">Projects</h2>
+        <div class="space-y-6">
+          <div>
+            <a href="https://github.com/misha7b/Program-Synthesis-for-Efficient-ML" class="project-link" target="_blank">
+              Program Synthesis For Efficient ML
+            </a>
+            <p class="text-sm mt-1">Research into using syntax-guided synthesis (SyGuS) to automatically generate hardware logic for low-precision arithmetic.</p>
+          </div>
+          <div>
+            <a href="main.pdf" class="project-link" target="_blank">
+              Neural Field Optimization
+            </a>
+            <p class="text-sm mt-1">Report exploring the robustness and performance of optimization techniques for neural fields.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const canvas = document.getElementById('hypercube-canvas');
-            const ctx = canvas.getContext('2d');
-            
-            function resizeCanvas() {
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-            }   
+  <script>
+  document.addEventListener('DOMContentLoaded', async function () {
+    const canvas = document.getElementById('dragon-canvas');
+    const ctx = canvas.getContext('2d');
 
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-            
-            const vertices4D = [
-                [-1, -1, -1, -1], [1, -1, -1, -1], [1, 1, -1, -1], [-1, 1, -1, -1],
-                [-1, -1, 1, -1], [1, -1, 1, -1], [1, 1, 1, -1], [-1, 1, 1, -1],
-                [-1, -1, -1, 1], [1, -1, -1, 1], [1, 1, -1, 1], [-1, 1, -1, 1],
-                [-1, -1, 1, 1], [1, -1, 1, 1], [1, 1, 1, 1], [-1, 1, 1, 1]
-            ];
-            
-            const edges = [];
-            for (let i = 0; i < vertices4D.length; i++) {
-                for (let j = i + 1; j < vertices4D.length; j++) {
-                    let diff = 0;
-                    for (let k = 0; k < 4; k++) {
-                        if (vertices4D[i][k] !== vertices4D[j][k]) diff++;
-                    }
-                    if (diff === 1) edges.push([i, j]);
-                }
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // --- STL loader ---
+    async function loadSTL(url) {
+      const response = await fetch(url);
+      const arrayBuffer = await response.arrayBuffer();
+      const data = new DataView(arrayBuffer);
+
+      // Detect binary STL
+      const isBinary = () => {
+        const text = new TextDecoder().decode(arrayBuffer.slice(0, 200)).trim();
+        return !text.startsWith("solid");
+      };
+
+      let vertices = [];
+      let faces = [];
+
+      if (isBinary()) {
+        const triangles = data.getUint32(80, true);
+        let offset = 84;
+        for (let i = 0; i < triangles; i++) {
+          offset += 12; // skip normal
+          const triVerts = [];
+          for (let j = 0; j < 3; j++) {
+            const x = data.getFloat32(offset, true); offset += 4;
+            const y = data.getFloat32(offset, true); offset += 4;
+            const z = data.getFloat32(offset, true); offset += 4;
+            triVerts.push([x, y, z]);
+          }
+          const idx = triVerts.map(v => {
+            const key = v.join(",");
+            let vi = vertices.findIndex(p => p.join(",") === key);
+            if (vi === -1) {
+              vi = vertices.length;
+              vertices.push(v);
             }
-            
-            let angleXY = 0, angleXZ = 0, angleXW = 0, angleYZ = 0, angleYW = 0, angleZW = 0;
-            
-            function project4D(point4D) {
-                const size = Math.min(canvas.width, canvas.height) * 0.15;
-                let [x, y, z, w] = point4D;
-                
-                // 4D Rotations simplified
-                const r = (coord1, coord2, angle) => [coord1 * Math.cos(angle) - coord2 * Math.sin(angle), coord1 * Math.sin(angle) + coord2 * Math.cos(angle)];
-                [x, y] = r(x, y, angleXY);
-                [x, z] = r(x, z, angleXZ);
-                [x, w] = r(x, w, angleXW);
-                [y, z] = r(y, z, angleYZ);
-                [y, w] = r(y, w, angleYW);
-                [z, w] = r(z, w, angleZW);
-                
-                // Perspective Projections
-                const dist4D = 5, factor4D = dist4D / (dist4D - w);
-                const x3D = x * factor4D, y3D = y * factor4D, z3D = z * factor4D;
-                const dist3D = 3, factor3D = dist3D / (dist3D - z3D);
-                const px = x3D * factor3D * size + canvas.width / 2;
-                const py = -y3D * factor3D * size + canvas.height / 2;
-                
-                return [px, py];
-            }
-            
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.strokeStyle = '#222';
-                ctx.lineWidth = 1.5;
-                ctx.beginPath();
-                
-                for (const edge of edges) {
-                    const p1 = project4D(vertices4D[edge[0]]);
-                    const p2 = project4D(vertices4D[edge[1]]);
-                    ctx.moveTo(p1[0], p1[1]);
-                    ctx.lineTo(p2[0], p2[1]);
-                }
-                ctx.stroke();
-                
-                angleXY += 0.001; angleXZ += 0.002; angleXW += 0.003;
-                angleYZ += 0.004; angleYW += 0.005; angleZW += 0.006;
-                
-                requestAnimationFrame(animate);
-            }
-            animate();
+            return vi;
+          });
+          faces.push(idx);
+          offset += 2; // skip attribute byte count
+        }
+      } else {
+        // ASCII STL
+        const text = new TextDecoder().decode(arrayBuffer);
+        const lines = text.split("\n");
+        const vMap = new Map();
+        for (let line of lines) {
+          line = line.trim();
+          if (line.startsWith("vertex")) {
+            const parts = line.split(/\s+/).slice(1).map(Number);
+            const key = parts.join(",");
+            if (!vMap.has(key)) vMap.set(key, vertices.length), vertices.push(parts);
+          }
+          if (line.startsWith("endfacet")) {
+            const vs = Array.from(vMap.keys()).slice(-3).map(k => vMap.get(k));
+            faces.push(vs);
+          }
+        }
+      }
+      return { vertices, faces };
+    }
+
+    function buildEdges(faces) {
+      const edges = new Set();
+      faces.forEach(f => {
+        [[f[0], f[1]], [f[1], f[2]], [f[2], f[0]]].forEach(([a, b]) => {
+          const key = a < b ? `${a},${b}` : `${b},${a}`;
+          edges.add(key);
         });
-    </script>
+      });
+      return Array.from(edges).map(e => e.split(',').map(Number));
+    }
+
+    function rotate([x, y, z], ax, ay) {
+      // Rotate around X
+      let y1 = y * Math.cos(ax) - z * Math.sin(ax);
+      let z1 = y * Math.sin(ax) + z * Math.cos(ax);
+      let x1 = x;
+      // Rotate around Y
+      let x2 = x1 * Math.cos(ay) + z1 * Math.sin(ay);
+      let z2 = -x1 * Math.sin(ay) + z1 * Math.cos(ay);
+      return [x2, y1, z2];
+    }
+
+    function project([x, y, z]) {
+      const scale = Math.min(canvas.width, canvas.height) * 0.4;
+      const dist = 6;
+      const f = dist / (dist - z);
+      const px = x * f * scale + canvas.width / 2;
+      const py = -y * f * scale + canvas.height / 2;
+      return [px, py];
+    }
+
+    // --- Load and render dragon ---
+    const { vertices, faces } = await loadSTL('lowpoly.stl');
+    const edges = buildEdges(faces);
+
+    let angleX = 0;
+    let angleY = 0;
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+      edges.forEach(([a, b]) => {
+        const p1 = project(rotate(vertices[a], angleX, angleY));
+        const p2 = project(rotate(vertices[b], angleX, angleY));
+        ctx.moveTo(p1[0], p1[1]);
+        ctx.lineTo(p2[0], p2[1]);
+      });
+      ctx.strokeStyle = "#222";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      angleX += 0.007;  // slower pitch
+      angleY += 0.01;   // yaw
+      requestAnimationFrame(animate);
+    }
+    animate();
+  });
+  </script>
 </body>
 </html>
+
