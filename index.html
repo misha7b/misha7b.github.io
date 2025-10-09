@@ -4,186 +4,136 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Michael Belyaev</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'IBM Plex Mono', monospace;
-      position: relative;
-      overflow-x: hidden;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
-    #hypercube-canvas {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 50%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.3;
-    }
-    .content-container {
-      width: 50%;
+    
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      background-color: #F5F5DC;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 2rem;
     }
-    @media (max-width: 768px) {
-      #hypercube-canvas { display: none; }
-      .content-container { width: 100%; }
-    }
-
-    /* Project link styles */
-    .project-link {
-      display: inline-block;
-      position: relative;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      color: #2563eb;
-      font-weight: 500;
-    }
-    .project-link::after {
-      content: '';
-      position: absolute;
+    
+    .container {
+      background-color: #FDFDF8;
+      max-width: 700px;
       width: 100%;
-      transform: scaleX(0);
-      height: 1px;
-      bottom: 0;
-      left: 0;
-      background-color: #000000;
-      transform-origin: bottom right;
-      transition: transform 0.3s ease-out;
+      padding: 4rem;
+      border: 1px solid #D4D4C8;
     }
-    .project-link:hover::after {
-      transform: scaleX(1);
-      transform-origin: bottom left;
+    
+    h1 {
+      font-size: 1.75rem;
+      font-weight: normal;
+      margin-bottom: 0.5rem;
+    }
+    
+    h2 {
+      font-size: 1.25rem;
+      font-weight: normal;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    
+    a {
+      color: #5B2C2C;
+      text-decoration: underline;
+      transition: color 0.2s ease;
+    }
+    
+    a:hover {
+      color: #8B4545;
+      text-decoration: none;
+    }
+    
+    .links {
+      margin-top: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    .links a {
+      margin-right: 1rem;
+    }
+    
+    .project {
+      margin-bottom: 1.75rem;
+    }
+    
+    .project-title {
+      font-weight: normal;
+      margin-bottom: 0.25rem;
+    }
+    
+    .project p {
+      margin-bottom: 0;
+      font-size: 0.95rem;
+      color: #333;
+    }
+    
+    @media (max-width: 640px) {
+      .container {
+        padding: 2.5rem;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      h2 {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
-<body class="bg-white min-h-screen flex">
-  <canvas id="hypercube-canvas"></canvas>
-
-  <div class="content-container">
-    <header class="mb-12">
-      <h1 class="text-2xl md:text-3xl font-medium">Michael Belyaev</h1>
-      <div class="flex space-x-4 mt-2">
-        <a href="michaelBelyaevCV.pdf" class="text-sm hover:underline" target="_blank">Resume</a>
-        <a href="https://github.com/misha7b" target="_blank" class="text-sm hover:underline">GitHub</a>
-        <a href="https://linkedin.com/in/misha7b" target="_blank" class="text-sm hover:underline">LinkedIn</a>
+<body>
+  <div class="container">
+    <header>
+      <h1>Michael Belyaev</h1>
+      <div class="links">
+        <a href="michaelBelyaevCV.pdf" target="_blank">Resume</a>
+        <a href="https://github.com/misha7b" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/misha7b" target="_blank">LinkedIn</a>
       </div>
     </header>
 
     <main>
-      <div class="mb-16">
-        <h2 class="text-lg md:text-xl font-medium mb-2">About me</h2>
-        <p class="text-sm md:text-base leading-relaxed">
-          I'm Misha, a 4th-year undergraduate Mathematics student at the University of Edinburgh. I’m particularly interested in the intersection of mathematics and machine learning.
+      <section>
+        <h2>About me</h2>
+        <p>
+          I'm Misha, a 4th-year undergraduate Mathematics student at the University of Edinburgh.
         </p>
-      </div>
+      </section>
 
-      <div class="mb-16">
-        <h2 class="text-lg md:text-xl font-medium mb-6">Projects</h2>
-        <div class="space-y-6">
-          <div>
-            <a href="https://github.com/misha7b/Program-Synthesis-for-Efficient-ML" class="project-link" target="_blank">
-              Program Synthesis For Efficient ML
-            </a>
-            <p class="text-sm mt-1">Research into using syntax-guided synthesis (SyGuS) to automatically generate hardware logic for low-precision arithmetic.</p>
+      <section>
+        <h2>Projects</h2>
+        
+        <div class="project">
+          <div class="project-title">
+            <a href="https://github.com/misha7b/Program-Synthesis-for-Efficient-ML" target="_blank">Program Synthesis For Efficient ML</a>
           </div>
-          <div>
-            <a href="main.pdf" class="project-link" target="_blank">
-              Neural Field Optimization
-            </a>
-            <p class="text-sm mt-1">Report exploring the robustness and performance of optimization techniques for neural fields.</p>
-          </div>
+          <p>Research into using syntax-guided synthesis (SyGuS) to automatically generate hardware logic for low-precision arithmetic.</p>
         </div>
-      </div>
+        
+        <div class="project">
+          <div class="project-title">
+            <a href="main.pdf" target="_blank">Neural Field Optimization</a>
+          </div>
+          <p>Report exploring the robustness and performance of optimization techniques for neural fields.</p>
+        </div>
+      </section>
     </main>
   </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const canvas = document.getElementById('hypercube-canvas');
-      const ctx = canvas.getContext('2d');
-
-      // Handle sizing incl. devicePixelRatio for crisp lines
-      function resizeCanvas() {
-        const dpr = Math.max(1, window.devicePixelRatio || 1);
-        const cssW = canvas.offsetWidth;
-        const cssH = canvas.offsetHeight;
-        canvas.width = Math.floor(cssW * dpr);
-        canvas.height = Math.floor(cssH * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // render in CSS pixels
-      }
-      window.addEventListener('resize', resizeCanvas);
-      resizeCanvas();
-
-      // 16 vertices of the tesseract (±1 in each coordinate)
-      const vertices4D = [
-        [-1,-1,-1,-1], [ 1,-1,-1,-1], [ 1, 1,-1,-1], [-1, 1,-1,-1],
-        [-1,-1, 1,-1], [ 1,-1, 1,-1], [ 1, 1, 1,-1], [-1, 1, 1,-1],
-        [-1,-1,-1, 1], [ 1,-1,-1, 1], [ 1, 1,-1, 1], [-1, 1,-1, 1],
-        [-1,-1, 1, 1], [ 1,-1, 1, 1], [ 1, 1, 1, 1], [-1, 1, 1, 1]
-      ];
-
-      // Build edges: connect vertices differing in exactly one coordinate
-      const edges = [];
-      for (let i = 0; i < vertices4D.length; i++) {
-        for (let j = i + 1; j < vertices4D.length; j++) {
-          let diff = 0;
-          for (let k = 0; k < 4; k++) if (vertices4D[i][k] !== vertices4D[j][k]) diff++;
-          if (diff === 1) edges.push([i, j]);
-        }
-      }
-
-      // Rotation angles
-      let angleXY = 0, angleXZ = 0, angleXW = 0, angleYZ = 0, angleYW = 0, angleZW = 0;
-
-      // 2D rotation helper
-      const rot2 = (a, b, t) => [a * Math.cos(t) - b * Math.sin(t), a * Math.sin(t) + b * Math.cos(t)];
-
-      // 4D -> 2D projection via 4D->3D perspective then 3D->2D perspective
-      function project4D(p4) {
-        const size = Math.min(canvas.offsetWidth, canvas.offsetHeight) * 0.16;
-        let [x, y, z, w] = p4;
-
-        [x, y] = rot2(x, y, angleXY);
-        [x, z] = rot2(x, z, angleXZ);
-        [x, w] = rot2(x, w, angleXW);
-        [y, z] = rot2(y, z, angleYZ);
-        [y, w] = rot2(y, w, angleYW);
-        [z, w] = rot2(z, w, angleZW);
-
-        const dist4 = 5, f4 = dist4 / (dist4 - w);
-        const x3 = x * f4, y3 = y * f4, z3 = z * f4;
-
-        const dist3 = 3, f3 = dist3 / (dist3 - z3);
-        const px = x3 * f3 * size + canvas.offsetWidth / 2;
-        const py = -y3 * f3 * size + canvas.offsetHeight / 2;
-        return [px, py];
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
-        ctx.beginPath();
-        for (const [i, j] of edges) {
-          const p1 = project4D(vertices4D[i]);
-          const p2 = project4D(vertices4D[j]);
-          ctx.moveTo(p1[0], p1[1]);
-          ctx.lineTo(p2[0], p2[1]);
-        }
-        ctx.strokeStyle = '#222';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-
-        // Gentle multi-plane rotation
-        angleXY += 0.0015; angleXZ += 0.0025; angleXW += 0.0030;
-        angleYZ += 0.0040; angleYW += 0.0020; angleZW += 0.0035;
-
-        requestAnimationFrame(animate);
-      }
-      animate();
-    });
-  </script>
 </body>
 </html>
-
