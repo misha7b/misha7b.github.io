@@ -13,86 +13,85 @@
     
     body {
       font-family: 'Times New Roman', Times, serif;
-      background-color: #F5F5DC;
+      background-color: #fafafa;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
+      padding: 4rem 2rem;
     }
     
     .container {
-      background-color: #FDFDF8;
-      max-width: 700px;
-      width: 100%;
-      padding: 4rem;
-      border: 1px solid #D4D4C8;
+      max-width: 550px;
+      margin: 0 auto;
     }
     
     h1 {
-      font-size: 1.75rem;
+      font-size: 2rem;
       font-weight: normal;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+      border-bottom: 1px solid #000;
+      padding-bottom: 0.5rem;
     }
     
     h2 {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-weight: normal;
-      margin-top: 2.5rem;
-      margin-bottom: 1rem;
+      margin-top: 3rem;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.9rem;
     }
     
     p {
-      line-height: 1.7;
+      line-height: 1.65;
       margin-bottom: 1rem;
+      color: #333;
     }
     
     a {
-      color: #5B2C2C;
-      text-decoration: underline;
-      transition: color 0.2s ease;
+      color: #000;
+      text-decoration: none;
+      border-bottom: 1px solid #000;
+      transition: opacity 0.2s ease;
     }
     
     a:hover {
-      color: #8B4545;
-      text-decoration: none;
+      opacity: 0.6;
     }
     
     .links {
-      margin-top: 0.5rem;
-      margin-bottom: 2.5rem;
+      margin-top: 1rem;
+      margin-bottom: 0;
+      font-size: 0.95rem;
     }
     
     .links a {
-      margin-right: 1rem;
+      margin-right: 1.25rem;
+      border-bottom: none;
+      text-decoration: underline;
     }
     
     .project {
-      margin-bottom: 1.75rem;
+      margin-bottom: 2rem;
     }
     
     .project-title {
       font-weight: normal;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.4rem;
     }
     
     .project p {
       margin-bottom: 0;
       font-size: 0.95rem;
-      color: #333;
+      color: #555;
     }
     
     @media (max-width: 640px) {
-      .container {
-        padding: 2.5rem;
+      body {
+        padding: 3rem 1.5rem;
       }
       
       h1 {
-        font-size: 1.5rem;
-      }
-      
-      h2 {
-        font-size: 1.1rem;
+        font-size: 1.65rem;
       }
     }
   </style>
@@ -123,7 +122,7 @@
           <div class="project-title">
             <a href="https://github.com/misha7b/Program-Synthesis-for-Efficient-ML" target="_blank">Program Synthesis For Efficient ML</a>
           </div>
-          <p>Research into using syntax-guided synthesis (SyGuS) to automatically generate hardware logic for low-precision arithmetic.</p>
+          <p>LFCS summer research internship, explored using syntax-guided synthesis (SyGuS) to automatically generate hardware logic for low-precision arithmetic.</p>
         </div>
         
         <div class="project">
