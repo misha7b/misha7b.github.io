@@ -2,146 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Michael Belyaev</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: 'Times New Roman', Times, serif;
-      background-color: #fbf5e6;
-      min-height: 100vh;
-      padding: 4rem 2rem;
-    }
-    
-    .container {
-      max-width: 550px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #111;
+      background: #fff;
+      max-width: 640px;
       margin: 0 auto;
+      padding: 80px 24px 120px;
     }
-    
-    h1 {
-      font-size: 2rem;
-      font-weight: normal;
-      margin-bottom: 0.75rem;
-      border-bottom: 1px solid #000;
-      padding-bottom: 0.5rem;
+
+    h1 { font-size: 1.4rem; font-weight: 500; margin-bottom: 4px; }
+
+    p { color: #444; margin-bottom: 16px; }
+
+    a { color: #111; }
+    a:hover { color: #555; }
+
+    hr {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 40px 0;
     }
-    
+
     h2 {
-      font-size: 1.1rem;
-      font-weight: normal;
-      margin-top: 3rem;
-      margin-bottom: 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-size: 0.9rem;
+      color: #999;
+      margin-bottom: 16px;
     }
-    
-    p {
-      line-height: 1.65;
-      margin-bottom: 1rem;
-      color: #333;
-    }
-    
-    a {
-      color: #000;
-      text-decoration: none;
-      border-bottom: 1px solid #000;
-      transition: opacity 0.2s ease;
-    }
-    
-    a:hover {
-      opacity: 0.6;
-    }
-    
-    .links {
-      margin-top: 1rem;
-      margin-bottom: 0;
-      font-size: 0.95rem;
-    }
-    
-    .links a {
-      margin-right: 1.25rem;
-      border-bottom: none;
-      text-decoration: underline;
-    }
-    
-    .project {
-      margin-bottom: 2rem;
-    }
-    
-    .project-title {
-      font-weight: normal;
-      margin-bottom: 0.4rem;
-    }
-    
-    .project p {
-      margin-bottom: 0;
-      font-size: 0.95rem;
-      color: #555;
-    }
-    
-    @media (max-width: 640px) {
-      body {
-        padding: 3rem 1.5rem;
-      }
-      
-      h1 {
-        font-size: 1.65rem;
-      }
-    }
+
+    .links { display: flex; gap: 20px; margin-top: 20px; }
+    .links a { font-size: 0.9rem; color: #555; text-decoration: none; }
+    .links a:hover { color: #111; }
+
+    ul { list-style: none; color: #444; }
+    ul li { margin-bottom: 6px; }
+    ul li::before { content: "–  "; color: #bbb; }
+    ul li a { color: #444; text-decoration: none; border-bottom: 1px solid #ddd; }
+    ul li a:hover { color: #111; border-color: #111; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Michael Belyaev</h1>
-      <div class="links">
-        <a href="michaelBelyaev_CV.pdf" target="_blank">Resume</a>
-        <a href="https://github.com/misha7b" target="_blank">GitHub</a>
-        <a href="https://linkedin.com/in/misha7b" target="_blank">LinkedIn</a>
-      </div>
-    </header>
-    <main>
-      <section>
-        <h2>About me</h2>
-        <p>
-        I'm Misha, a 4th-year undergraduate Mathematics student at the University of Edinburgh.
-        Get in touch at <a href="mailto:michael7belyaev@gmail.com">michael7belyaev@gmail.com</a>
-      </p>
-      </section>
-      <section>
-        <h2>Projects</h2>
-        
-        <div class="project">
-          <div class="project-title">
-            <a href="https://github.com/misha7b/raytracerCW" target="_blank">Raytracer</a>
-          </div>
-        </div>
-        
-        <div class="project">
-          <div class="project-title">
-            <a href="https://github.com/misha7b/Program-Synthesis-for-Efficient-ML" target="_blank">Program Synthesis For Efficient ML</a>
-          </div>
-        </div>
-        
-        <div class="project">
-          <div class="project-title">
-            <a href="main.pdf" target="_blank">Neural Field Optimization</a>
-          </div>
-        </div>
-        
-        <div class="project">
-          <div class="project-title">
-            <a href="https://github.com/misha7b/NHS-Scotland-Operation-Cancellations-Analysis" target="_blank">NHS Scotland Operation Cancellations Analysis</a>
-          </div>
-        </div>
-      </section>
-    </main>
+
+  <h1>Michael Belyaev</h1>
+
+  <div class="links">
+    <a href="michaelBelyaev_CV.pdf" target="_blank">Resume</a>
+    <a href="https://github.com/misha7b" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/misha7b" target="_blank">LinkedIn</a>
   </div>
+
+  <hr />
+
+  <h2>About</h2>
+  <p>
+    I'm Misha, a 4th-year undergraduate Mathematics student at the University of Edinburgh.
+    Get in touch at <a href="mailto:michael7belyaev@gmail.com">michael7belyaev@gmail.com</a>.
+  </p>
+
+  <hr />
+
+  <h2>Projects</h2>
+  <ul>
+    <li><a href="https://github.com/misha7b/raytracerCW" target="_blank">Raytracer</a></li>
+    <li><a href="https://github.com/misha7b/Program-Synthesis-for-Efficient-ML" target="_blank">Program Synthesis for Efficient ML</a></li>
+    <li><a href="main.pdf" target="_blank">Neural Field Optimization</a></li>
+    <li><a href="https://github.com/misha7b/NHS-Scotland-Operation-Cancellations-Analysis" target="_blank">NHS Scotland Operation Cancellations Analysis</a></li>
+  </ul>
+
 </body>
 </html>
