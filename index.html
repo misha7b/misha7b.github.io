@@ -1,85 +1,204 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Michael Belyaev</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Michael Belyaev — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3efe6;
+    --ink: #1a1714;
+    --ink-soft: #4a443c;
+    --ink-muted: #8a8378;
+    --rule: #d8d1c2;
+    --accent: oklch(0.55 0.14 30);
+    --measure: 38rem;
+    --serif: "EB Garamond", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --gap: clamp(3.5rem, 8vh, 7rem);
+  }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      line-height: 1.7;
-      color: #111;
-      background: #fff;
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 80px 24px 120px;
-    }
+  * { box-sizing: border-box; }
 
-    h1 { font-size: 1.4rem; font-weight: 500; margin-bottom: 4px; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.55;
+    font-feature-settings: "kern", "liga", "onum";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-    p { color: #444; margin-bottom: 16px; }
+  ::selection { background: var(--accent); color: var(--paper); }
 
-    a { color: #111; }
-    a:hover { color: #555; }
+  .page {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: clamp(3rem, 8vh, 6rem) clamp(1.5rem, 5vw, 2.5rem) 4rem;
+  }
 
-    hr {
-      border: none;
-      border-top: 1px solid #eee;
-      margin: 40px 0;
-    }
+  h1, h2, h3 { font-weight: 500; margin: 0; }
 
-    h2 {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #999;
-      margin-bottom: 16px;
-    }
+  .display {
+    font-size: clamp(2rem, 4.5vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+  }
 
-    .links { display: flex; gap: 20px; margin-top: 20px; }
-    .links a { font-size: 0.9rem; color: #555; text-decoration: none; }
-    .links a:hover { color: #111; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
 
-    ul { list-style: none; color: #444; }
-    ul li { margin-bottom: 6px; }
-    ul li::before { content: "–  "; color: #bbb; }
-    ul li a { color: #444; text-decoration: none; border-bottom: 1px solid #ddd; }
-    ul li a:hover { color: #111; border-color: #111; }
-  </style>
+  p { margin: 0 0 1.1em; }
+
+  a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1px;
+    transition: border-color .15s, color .15s;
+  }
+  a:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero { margin-bottom: var(--gap); }
+
+  section { margin-bottom: var(--gap); }
+  section header { margin-bottom: 1.5rem; }
+
+  .project-list { list-style: none; padding: 0; margin: 0; }
+
+  .project-list li a {
+    display: block;
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: none;
+  }
+  .project-list li:last-child a { border-bottom: 1px solid var(--rule); }
+  .project-list .p-name { font-size: 1.05rem; }
+  .project-list .p-desc {
+    display: block;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+  .project-list li a:hover .p-name,
+  .project-list li a:hover .p-desc { color: var(--accent); }
+
+  .hero-links {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .hero-links a {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1px;
+    color: var(--ink-soft);
+  }
+  .hero-links a:hover { color: var(--accent); border-color: var(--accent); }
+
+  footer.colophon {
+    margin-top: var(--gap);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 640px) {
+    .hero-links { gap: 0.9rem; }
+  }
+</style>
 </head>
 <body>
 
-  <h1>Michael Belyaev</h1>
+<main class="page">
 
-  <div class="links">
-    <a href="michaelBelyaev_CV.pdf" target="_blank">Resume</a>
-    <a href="https://github.com/misha7b" target="_blank">GitHub</a>
-    <a href="https://linkedin.com/in/misha7b" target="_blank">LinkedIn</a>
-  </div>
+  <section class="hero">
+    <h1 class="display">Michael Belyaev</h1>
+    <div class="hero-links">
+      <a href="https://github.com/misha7b" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/misha7b" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="michaelBelyaev_CV.pdf" target="_blank" rel="noopener">Résumé</a>
+    </div>
+  </section>
 
-  <hr />
+  <section class="about">
+    <header>
+      <span class="section-label">About</span>
+    </header>
 
-  <h2>About</h2>
-  <p>
-    I'm Misha, a 4th-year undergraduate Mathematics student at the University of Edinburgh.
-    Get in touch at <a href="mailto:michael7belyaev@gmail.com">michael7belyaev@gmail.com</a>.
-  </p>
+    <p>I'm Misha, a 4th-year Mathematics undergraduate at the University of Edinburgh. My interests sit at the intersection of machine learning and computer graphics.</p>
 
-  <hr />
+    <p>Get in touch at <a href="mailto:michael7belyaev@gmail.com">michael7belyaev@gmail.com</a>.</p>
+  </section>
 
-  <h2>Projects</h2>
-  <ul>
-    <li><a href="https://github.com/misha7b/LLIE-EqM" target="_blank">Equilibrium Matching for LLIE</a></li>
-    <li><a href="https://github.com/misha7b/raytracerCW" target="_blank">Raytracer</a></li>
-    <li><a href="https://github.com/misha7b/Program-Synthesis-for-Efficient-ML" target="_blank">Program Synthesis for Efficient ML</a></li>
-    <li><a href="main.pdf" target="_blank">Neural Field Optimization</a></li>
-    <li><a href="https://github.com/misha7b/NHS-Scotland-Operation-Cancellations-Analysis" target="_blank">NHS Scotland Operation Cancellations Analysis</a></li>
-  </ul>
+  <section class="projects">
+    <header>
+      <span class="section-label">Projects</span>
+    </header>
+
+    <ul class="project-list">
+      <li>
+        <a href="https://github.com/misha7b/LLIE-EqM" target="_blank" rel="noopener">
+          <span class="p-name">Equilibrium Matching for LLIE</span>
+          <span class="p-desc">Low-light image enhancement via Equilibrium Matching.</span>
+        </a>
+      </li>
+      <li>
+        <a href="main.pdf" target="_blank" rel="noopener">
+          <span class="p-name">Neural Field Optimization</span>
+          <span class="p-desc">Research project on SDF reconstruction from point clouds.</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/misha7b/Program-Synthesis-for-Efficient-ML" target="_blank" rel="noopener">
+          <span class="p-name">Program Synthesis for Efficient ML</span>
+          <span class="p-desc">Synthesising hardware logic for low-precision ML arithmetic.</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/misha7b/raytracerCW" target="_blank" rel="noopener">
+          <span class="p-name">Raytracer</span>
+          <span class="p-desc">A C++ raytracer built from scratch for a coursework.</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/misha7b/NHS-Scotland-Operation-Cancellations-Analysis" target="_blank" rel="noopener">
+          <span class="p-name">NHS Scotland Operation Cancellations</span>
+          <span class="p-desc">Statistical analysis of NHS Scotland cancellation data.</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <footer class="colophon">
+    <span>© Michael Belyaev, 2026</span>
+  </footer>
+
+</main>
 
 </body>
 </html>
