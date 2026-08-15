@@ -11,12 +11,10 @@
   * {
     box-sizing: border-box;
   }
-
   html, body {
     margin: 0;
     padding: 0;
   }
-
   body {
     background: #ffffff;
     color: #1a1a1a;
@@ -28,40 +26,51 @@
     justify-content: center;
     padding: 6vh 1.5rem;
   }
-
   main {
     max-width: 30rem;
     width: 100%;
   }
-
   h1 {
     font-size: 1.6rem;
     font-weight: 600;
     margin: 0 0 1.25rem 0;
   }
-
   p {
     font-size: 1.05rem;
     margin: 0 0 1.75rem 0;
   }
-
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+  }
+  .projects {
+    margin: 0 0 1.75rem 0;
+  }
+  .projects li {
+    list-style: none;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.05rem;
+  }
+  .projects ul {
+    margin: 0;
+    padding: 0;
+  }
   nav {
     display: flex;
     gap: 1.5rem;
+    margin: 0 0 1.75rem 0;
   }
-
   a {
     color: #1a1a1a;
     text-decoration: underline;
     text-underline-offset: 3px;
     font-size: 0.95rem;
   }
-
   a:hover,
   a:focus-visible {
     color: #555;
   }
-
   a:focus-visible {
     outline: 2px solid #1a1a1a;
     outline-offset: 4px;
@@ -70,14 +79,20 @@
 </head>
 <body>
   <main>
-    <h1>Your Name</h1>
-    <p>
-      I'm Misha, a maths student at the University of Edinburgh. I am intersted in computer graphics and computer vision, with a focus on deep learning methods. I will finish this page soon, I promise!
-    </p>
+    <h1>Michael Belyaev</h1>
     <nav>
       <a href="https://github.com/misha7b" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="https://linkedin.com/in/misha7b" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </nav>
+    <p>
+      I'm Misha, a maths student at the University of Edinburgh. I am intersted in computer graphics and computer vision, with a focus on deep learning methods. I will finish this page soon, I promise!
+    </p>
+    <div class="projects">
+      <h2>Projects</h2>
+      <ul>
+        <li><a href="https://github.com/misha7b/raytracerCW" target="_blank" rel="noopener noreferrer">Raytracer</a> — a ray tracer built from scratch in C++ with no external libraries.</li>
+      </ul>
+    </div>
   </main>
 </body>
 </html>
