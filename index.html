@@ -58,8 +58,12 @@
   }
   nav {
     display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
     margin: 0 0 1.75rem 0;
+  }
+  nav span {
+    font-size: 0.95rem;
   }
   a {
     color: #1a1a1a;
@@ -83,9 +87,10 @@
     <nav>
       <a href="https://github.com/misha7b" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="https://linkedin.com/in/misha7b" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <span id="email"></span>
     </nav>
     <p>
-      I'm Misha, a maths student at the University of Edinburgh. I am intersted in computer graphics and computer vision, with a focus on deep learning methods. I will finish this page soon, I promise!
+      I'm Misha, a maths student at the University of Edinburgh. I am interested in computer graphics and computer vision, with a focus on deep learning methods. I will finish this page soon, I promise!
     </p>
     <div class="projects">
       <h2>Projects</h2>
@@ -94,5 +99,11 @@
       </ul>
     </div>
   </main>
+  <script>
+    // Assembled at runtime so the address isn't in the HTML source.
+    const user = "michael7belyaev";
+    const domain = "gmail.com";
+    document.getElementById("email").textContent = user + "@" + domain;
+  </script>
 </body>
 </html>
